@@ -12,8 +12,8 @@ const app = () => {
     },
   };
   const watchedState = onchange(state, render);
-  const form = document.querySelector(".rss-form");
-  form.addEventListener("input", (e) => {
+  const input = document.querySelector(".rss-form #url-input");
+  input.addEventListener("input", (e) => {
     watchedState.uiFormState.url = e.target.value;
   });
 };
