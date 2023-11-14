@@ -4,12 +4,8 @@ const schema = object({
 });
 const render = (path, value, prevValue) => {
   if (path === "formUiState.url") {
-    schema.validate((url, err) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log(url);
-    });
+    const valid = new Promise(schema.validate(value));
+    valid.then((result) => console.log(result));
   }
 };
 export default render;
