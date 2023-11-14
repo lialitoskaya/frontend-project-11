@@ -1,4 +1,5 @@
 import "./style.css";
+import "bootstrap";
 import onChange from "on-change";
 import render from "./view.js";
 
