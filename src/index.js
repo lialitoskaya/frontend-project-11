@@ -1,5 +1,4 @@
-import "./style.scss";
-import "bootstrap/dist/css/bootstrap.css";
+import "./style.css";
 import onChange from "on-change";
 import render from "./view.js";
 
