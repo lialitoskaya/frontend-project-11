@@ -1,0 +1,32 @@
+@import "~bootstrap/scss/bootstrap";
+.gradient {
+    background:  radial-gradient(rgba(120, 179, 182, 0.32) 10px, #ffcae6, #d8e4ef 90%);
+}
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1, p, body {
+    color:#36424b
+}
+.btn {
+    border-color: rgb(123 127 140 / 17%);
+    background-color: rgb(255 239 248);
+    color: #36424b;
+}
+a {
+  color: #49495d;
+}
+.text-success {
+    color: #08822d;
+}
+.btn:hover {
+    background-color: rgb(246 226 237);
+    border-color: rgb(130 133 137 / 65%);
+    color: #36424b;
+}
+.btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
+    background-color: #deedff;
+    border-color: rgb(130 133 137 / 65%);
+    color: #36424b;
+}
+
+
+
+
