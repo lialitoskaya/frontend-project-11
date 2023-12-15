@@ -20,8 +20,12 @@ const initLng = (lng) => {
 const app = () => {
   const state = {
     lng: '',
-    uiFormState: {
-      urlState: null,
+    uiForm: {
+      state: null,
+      urlState: {
+        valid: '',
+        i18nKey: '',
+      },
       urls: [],
       modal: {
         mode: '',
@@ -52,19 +56,20 @@ const app = () => {
     e.preventDefault();
 
     const url = input.value;
-    const { urls } = watchedState.uiFormState;
+    const { urls } = watchedState.uiForm;
 
-    urlValidator(urls, url).then((result) => {
-      watchedState.uiFormState.urlState = result;
-      if (result === 'valid') {
+    urlValidator(urls, url, i18n)
+      .then(() => updatePosts(rssElements, url, i18n))
+      .then(() => {
         urls.push(url);
-        updatePosts(rssElements, url);
-      }
-    });
+        return { valid: true, i18nKey: 'feedback.success' };
+      })
+      .catch((err) => ({ valid: false, i18nKey: err.message }))
+      .then((currentState) => (watchedState.uiForm.urlState = currentState));
   });
 
   modalCloseBtn.addEventListener('click', () => {
-    watchedState.uiFormState.modal.mode = 'close';
+    watchedState.uiForm.modal.mode = 'close';
   });
 };
 export default app;

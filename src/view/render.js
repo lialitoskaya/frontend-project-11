@@ -6,10 +6,6 @@ import InitElements from '../util/init.js';
 const render = (rssElements, i18n) => (path, value) => {
   const elements = new InitElements();
   const modalElements = elements.getModalElements();
-  const formElements = elements.getFormElements();
-
-  const { input } = formElements;
-  input.value = '';
 
   if (path === 'uiFormState.modal.mode') {
     if (value === 'close') {
@@ -24,7 +20,7 @@ const render = (rssElements, i18n) => (path, value) => {
   if (path === 'rssElements.posts') {
     renderPosts(rssElements.posts, i18n);
   }
-  if (path === 'uiFormState.urlState') {
+  if (path === 'uiForm.urlState.') {
     renderFeedback(value, i18n);
   }
 };

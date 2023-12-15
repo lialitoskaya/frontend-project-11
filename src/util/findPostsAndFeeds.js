@@ -35,7 +35,7 @@ const findPostsAndFeeds = (url) => contentRequest(url)
 
     return [feed, posts];
   })
-  .catch((err) => {
-    throw new Error(err);
+  .catch(() => {
+    throw new Error({ key: 'feedback.parseError' });
   });
 export default findPostsAndFeeds;
