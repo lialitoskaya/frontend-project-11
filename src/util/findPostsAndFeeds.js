@@ -1,41 +1,42 @@
-import contentRequest from './contentRequest.js';
-
 const parser = new DOMParser();
 
-const findPostsAndFeeds = (url) => contentRequest(url)
-  .then((data) => {
-    const rssDom = parser.parseFromString(data.contents, 'application/xml');
+const parseCDATA = (textContent) => {
+  const regExp = /<!\[CDATA\[(.*?)\]\]>/;
+  const normalizeText = textContent.replace(regExp, '$1');
+  return normalizeText;
+};
+const findPostsAndFeeds = (content) => new Promise((resolve, reject) => {
+  try {
+    const rssDom = parser.parseFromString(content, 'application/xml');
     const siteDescription = rssDom.querySelector('channel > title').innerHTML;
     const siteTitle = rssDom.querySelector('channel > description').innerHTML;
     const items = rssDom.querySelectorAll('item');
+    const normalizeSiteDescription = parseCDATA(siteDescription);
+    const normalizeSiteTitle = parseCDATA(siteTitle);
 
-    const feed = [
-      {
-        description: siteDescription,
-        title: siteTitle,
-      },
-    ];
-
+    const feed = {
+      description: normalizeSiteDescription,
+      title: normalizeSiteTitle,
+    };
     const posts = Array.from(items).map((item) => {
       const itemTitle = item.querySelector('title').innerHTML;
       const itemLink = item.querySelector('link').innerHTML;
-      const description = item.querySelector('description').innerHTML;
+      const itemDescription = item.querySelector('description').innerHTML;
 
-      const regExp = /<!\[CDATA\[(.*?)\]\]>/;
-      const normalizeLink = itemLink.replace(regExp, '$1');
-      const normalizeDescription = description.replace(regExp, '$1');
+      const normalizeLink = parseCDATA(itemLink);
+      const normalizeDescription = parseCDATA(itemDescription);
+      const normalizeTitle = parseCDATA(itemTitle);
 
       const rssPost = {
-        title: itemTitle,
+        title: normalizeTitle,
         link: normalizeLink,
         description: normalizeDescription,
       };
       return rssPost;
     });
-
-    return [feed, posts];
-  })
-  .catch(() => {
-    throw new Error({ key: 'feedback.parseError' });
-  });
+    resolve([feed, posts]);
+  } catch (e) {
+    reject('parseError');
+  }
+});
 export default findPostsAndFeeds;

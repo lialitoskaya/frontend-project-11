@@ -37,7 +37,7 @@ const app = () => {
     },
   };
 
-  const i18n = initLng('ru');
+  const i18n = initLng('en');
   runApp(i18n);
 
   const watchedState = onChange(state, render(state.rssElements, i18n));
@@ -59,13 +59,15 @@ const app = () => {
     const { urls } = watchedState.uiForm;
 
     urlValidator(urls, url, i18n)
-      .then(() => updatePosts(rssElements, url, i18n))
+      .then(() => updatePosts(rssElements, url))
       .then(() => {
         urls.push(url);
-        return { valid: true, i18nKey: 'feedback.success' };
+        return { valid: true, i18nKey: 'success' };
       })
       .catch((err) => ({ valid: false, i18nKey: err.message }))
-      .then((currentState) => (watchedState.uiForm.urlState = currentState));
+      .then((currentState) => {
+        watchedState.uiForm.urlState = currentState;
+      });
   });
 
   modalCloseBtn.addEventListener('click', () => {

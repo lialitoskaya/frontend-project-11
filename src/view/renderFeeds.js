@@ -7,7 +7,6 @@ const renderFeeds = (newFeeds, i18n) => {
   const ul = document.createElement('ul');
   ul.classList = 'list-group border-0 rounded-0';
   const feedsChild = feedsDiv.querySelector('.card');
-
   newFeeds.forEach(({ description, title }) => {
     const li = document.createElement('li');
     li.classList = 'list-group-item border-0 border-end-0';

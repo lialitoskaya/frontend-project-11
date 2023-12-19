@@ -12,7 +12,10 @@ const ru = {
       invalid: 'Ссылка должна быть валидным URL',
       duplicate: 'RSS уже существует',
       parseError: 'Ресур не содержит валидный RSS',
+      networkError: 'Ошика сети',
       unknow: 'Ошибка чтения RSS',
+      feedsAndPostsStateRenderingError:
+        'Ошибка рендеринга состояния каналов и публикаций',
     },
     feeds: 'Фиды',
     posts: 'Посты',

@@ -5,8 +5,7 @@ const renderFeedback = (urlState, i18n) => {
   const { feedback } = elements.getHeaderElements();
   const { input } = elements.getFormElements();
 
-  feedback.textContent = i18n.t(urlState.i18nKey);
-
+  feedback.textContent = i18n.t(`feedback.${urlState.i18nKey}`);
   switch (urlState.valid) {
     case false:
       input.classList.add('is-invalid');

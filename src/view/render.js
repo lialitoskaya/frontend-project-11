@@ -20,7 +20,7 @@ const render = (rssElements, i18n) => (path, value) => {
   if (path === 'rssElements.posts') {
     renderPosts(rssElements.posts, i18n);
   }
-  if (path === 'uiForm.urlState.') {
+  if (path === 'uiForm.urlState') {
     renderFeedback(value, i18n);
   }
 };
