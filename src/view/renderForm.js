@@ -7,6 +7,8 @@ const renderForm = (state) => {
   switch (state) {
     case 'filled': {
       feedback.textContent = '';
+      feedback.classList.remove('text-danger', 'text-success');
+      input.classList.remove('is-invalid');
       input.setAttribute('readonly', true);
       addBtn.setAttribute('disabled', true);
       break;

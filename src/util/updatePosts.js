@@ -27,12 +27,14 @@ const updatePosts = (elements, url) => contentRequest(url)
         elements.posts = [...newPosts, ...elements.posts];
       }
     } catch (e) {
-      console.log(e);
       throw new Error('findFeedsAndPostsError');
     }
   })
   .then(() => {
-    setTimeout(() => updatePosts(elements, url), 5000);
+    setTimeout(
+      () => updatePosts(elements, url).catch((err) => console.error(err.message)),
+      5000,
+    );
   });
 
 export default updatePosts;
