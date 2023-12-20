@@ -6,7 +6,7 @@ const renderFeedback = (status, i18n) => {
   const { input } = elements.getFormElements();
 
   feedback.textContent = i18n.t(`feedback.${status}`);
-  console.log(status);
+
   if (status === 'success') {
     input.value = '';
     input.classList.remove('is-invalid');
@@ -15,11 +15,12 @@ const renderFeedback = (status, i18n) => {
     return;
   }
   if (status === 'invalid' || status === 'duplicate') {
-    feedback.classList.add('text-danger');
     input.classList.add('is-invalid');
-    return;
   }
-  input.classList.remove('is-invalid');
+  if (status === 'parseError' || status === 'networkError') {
+    input.classList.remove('is-invalid');
+  }
+  feedback.classList.remove('text-success');
   feedback.classList.add('text-danger');
 };
 export default renderFeedback;
