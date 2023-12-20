@@ -55,8 +55,9 @@ const app = () => {
 
     const url = input.value;
     const { urls } = watchedState;
+    urlState.state = 'filled';
 
-    urlValidator(urls, url, i18n)
+    urlValidator(urls, url)
       .then(() => updatePosts(rssElements, url))
       .then(() => {
         urls.push(url);
@@ -64,7 +65,8 @@ const app = () => {
       })
       .catch((err) => {
         urlState.statusKey = err.message;
-      });
+      })
+      .then(() => (urlState.state = 'done'));
   });
 };
 export default app;
