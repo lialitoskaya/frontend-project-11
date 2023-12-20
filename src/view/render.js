@@ -1,26 +1,15 @@
 import renderFeeds from './renderFeeds.js';
 import renderPosts from './renderPosts.js';
 import renderFeedback from './renderFeedback.js';
-import InitElements from '../util/init.js';
 
-const render = (rssElements, i18n) => (path, value) => {
-  const elements = new InitElements();
-  const modalElements = elements.getModalElements();
-
-  if (path === 'uiFormState.modal.mode') {
-    if (value === 'close') {
-      modalElements.buttons.readMore.href = '';
-      modalElements.title.innerHTML = '';
-      modalElements.body.innerHTML = '';
-    }
+const render = (state, i18n) => (path, value) => {
+  if (path === 'ui.rssElements.feeds') {
+    renderFeeds(state.rssElements.feeds, i18n);
   }
-  if (path === 'rssElements.feeds') {
-    renderFeeds(rssElements.feeds, i18n);
+  if (path === 'ui.rssElements.posts') {
+    renderPosts(state.rssElements.posts, state.seenPosts, i18n);
   }
-  if (path === 'rssElements.posts') {
-    renderPosts(rssElements.posts, i18n);
-  }
-  if (path === 'uiForm.urlState') {
+  if (path === 'ui.form.urlState.statusKey') {
     renderFeedback(value, i18n);
   }
 };
