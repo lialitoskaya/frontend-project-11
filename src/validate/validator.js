@@ -1,6 +1,6 @@
 import { object, string, setLocale } from 'yup';
 
-const urlValidator = (urlList, url, i18n) => {
+const urlValidator = (urlList, url) => {
   setLocale({
     string: {
       url: () => ({ key: 'invalid' }),
@@ -16,8 +16,6 @@ const urlValidator = (urlList, url, i18n) => {
 
   const result = schema.validate({ url }).catch((e) => {
     const error = e.errors[0];
-    const errorMessage = i18n.t(error.key);
-    console.error(errorMessage);
     throw new Error(error.key);
   });
 

@@ -20,58 +20,51 @@ const initLng = (lng) => {
 const app = () => {
   const state = {
     lng: '',
-    uiForm: {
-      state: null,
-      urlState: {
-        valid: '',
-        i18nKey: '',
+    ui: {
+      form: {
+        state: null,
+        urlState: {
+          statusKey: '',
+        },
       },
-      urls: [],
-      modal: {
-        mode: '',
+      rssElements: {
+        feeds: [],
+        posts: [],
       },
+      seenPosts: [],
     },
-    rssElements: {
-      feeds: [],
-      posts: [],
-    },
+    urls: [],
   };
 
-  const i18n = initLng('en');
+  const i18n = initLng('ru');
   runApp(i18n);
 
-  const watchedState = onChange(state, render(state.rssElements, i18n));
+  const watchedState = onChange(state, render(state.ui, i18n));
 
-  const { rssElements } = watchedState;
+  const { rssElements } = watchedState.ui;
 
   const elements = new InitElements();
   const formElements = elements.getFormElements();
-  const modal = elements.getModalElements();
 
   const { form } = elements;
   const { input } = formElements;
-  const modalCloseBtn = modal.buttons.close;
+  const { urlState } = watchedState.ui.form;
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const url = input.value;
-    const { urls } = watchedState.uiForm;
+    const { urls } = watchedState;
 
     urlValidator(urls, url, i18n)
       .then(() => updatePosts(rssElements, url))
       .then(() => {
         urls.push(url);
-        return { valid: true, i18nKey: 'success' };
+        urlState.statusKey = 'success';
       })
-      .catch((err) => ({ valid: false, i18nKey: err.message }))
-      .then((currentState) => {
-        watchedState.uiForm.urlState = currentState;
+      .catch((err) => {
+        urlState.statusKey = err.message;
       });
-  });
-
-  modalCloseBtn.addEventListener('click', () => {
-    watchedState.uiForm.modal.mode = 'close';
   });
 };
 export default app;

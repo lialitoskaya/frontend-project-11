@@ -14,8 +14,7 @@ const ru = {
       parseError: 'Ресур не содержит валидный RSS',
       networkError: 'Ошика сети',
       unknow: 'Ошибка чтения RSS',
-      feedsAndPostsStateRenderingError:
-        'Ошибка рендеринга состояния каналов и публикаций',
+      findFeedsAndPostsError: 'Ошибка поиска новых фидов и постов RSS',
     },
     feeds: 'Фиды',
     posts: 'Посты',

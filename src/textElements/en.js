@@ -14,7 +14,8 @@ const en = {
       parseError: 'No valid RSS in the resource',
       networkError: 'Network error',
       unknow: 'Error reading RSS',
-      feedsAndPostsStateRenderingError: 'Feeds and posts state rendering error',
+      findFeedsAndPostsError:
+        'Error searching for new posts and feeds from RSS',
     },
     feeds: 'Feeds',
     posts: 'Posts',

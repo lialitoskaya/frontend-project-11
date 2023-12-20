@@ -36,7 +36,7 @@ const findPostsAndFeeds = (content) => new Promise((resolve, reject) => {
     });
     resolve([feed, posts]);
   } catch (e) {
-    reject('parseError');
+    reject(new Error('parseError'));
   }
 });
 export default findPostsAndFeeds;

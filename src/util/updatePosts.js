@@ -2,39 +2,37 @@ import _ from 'lodash';
 import findPostsAndFeeds from './findPostsAndFeeds.js';
 import contentRequest from './contentRequest.js';
 
-const updatePosts = (elements, url) => {
-  const rssPostsAndFeeds = contentRequest(url)
-    .then((data) => findPostsAndFeeds(data.contents))
-    .then(([rssFeed, rssPosts]) => {
-      try {
-        const newPosts = rssPosts.filter((p) => !_.find(elements.posts, p));
-        const oldFeed = _.find(elements.feeds, { url });
-        let currentId;
-        if (oldFeed === undefined) {
-          const newFeed = { ...rssFeed, id: _.uniqueId(), url };
-          elements.feeds = [...elements.feeds, newFeed];
-          currentId = newFeed.id;
-        } else {
-          currentId = oldFeed.id;
-        }
+const updatePosts = (elements, url) => contentRequest(url)
+  .then((data) => findPostsAndFeeds(data.contents))
+  .catch((err) => {
+    throw new Error(err.message);
+  })
+  .then(([rssFeed, rssPosts]) => {
+    try {
+      const newPosts = rssPosts.filter((p) => !_.find(elements.posts, p));
+      const oldFeed = _.find(elements.feeds, { url });
+      let currentFeed;
+      if (oldFeed === undefined) {
+        const newFeed = { ...rssFeed, id: _.uniqueId(), url };
+        elements.feeds = [...elements.feeds, newFeed];
+        currentFeed = newFeed;
+      } else {
+        currentFeed = oldFeed;
+      }
+      if (newPosts.length > 0) {
         newPosts.map((p) => {
-          p.feedId = currentId;
+          p.feedId = currentFeed.id;
           p.id = _.uniqueId();
         });
-        if (newPosts.length > 0) {
-          elements.posts = [...newPosts, ...elements.posts];
-        }
-        return Promise.resolve();
-      } catch (e) {
-        return Promise.reject('feedsAndPostsStateRenderingError');
+        elements.posts = [...newPosts, ...elements.posts];
       }
-    })
-    .then(() => {
-      setTimeout(() => updatePosts(elements, url), 5000);
-    })
-    .catch((err) => {
-      throw new Error(err);
-    });
-  return rssPostsAndFeeds;
-};
+    } catch (e) {
+      console.log(e);
+      throw new Error('findFeedsAndPostsError');
+    }
+  })
+  .then(() => {
+    setTimeout(() => updatePosts(elements, url), 5000);
+  });
+
 export default updatePosts;
