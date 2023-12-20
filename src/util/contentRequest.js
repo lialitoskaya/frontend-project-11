@@ -3,9 +3,11 @@ const contentRequest = (url) => {
     const timeoutId = setTimeout(() => {
       reject(new Error('timeout of 10000ms exceeded'));
     }, 10000);
-    fetch(`https://allorigins.hexlet.app/get?url=${encodeURIComponent(url)}`, {
-      cache: 'no-store',
-    }).then((response) => {
+    fetch(
+      `https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(
+        url,
+      )}`,
+    ).then((response) => {
       clearTimeout(timeoutId);
       if (response.ok) {
         resolve(response.json());
