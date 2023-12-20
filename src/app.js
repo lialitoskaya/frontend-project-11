@@ -66,7 +66,10 @@ const app = () => {
       .catch((err) => {
         urlState.statusKey = err.message;
       })
-      .then(() => (urlState.state = 'done'));
+      .then(() => {
+        urlState.statusKey = '';
+        urlState.state = 'done';
+      });
   });
 };
 export default app;

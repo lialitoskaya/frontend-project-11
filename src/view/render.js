@@ -11,7 +11,9 @@ const render = (state, i18n) => (path, value) => {
     renderPosts(state.rssElements.posts, state.seenPosts, i18n);
   }
   if (path === 'ui.form.urlState.statusKey') {
-    renderFeedback(value, i18n);
+    if (value.length > 0) {
+      renderFeedback(value, i18n);
+    }
   }
   if (path === 'ui.form.urlState.state') {
     renderForm(value);
