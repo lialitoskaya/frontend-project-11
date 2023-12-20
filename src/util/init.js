@@ -11,7 +11,7 @@ class InitElements {
     const title = this.headerContent.querySelector('h1');
     const description = this.headerContent.querySelector('.lead');
     const feedback = this.headerContent.querySelector('.feedback');
-    const example = this.headerContent.querySelector('.example');
+    const example = this.headerContent.querySelector('.text-muted');
     return {
       title,
       description,
