@@ -14,8 +14,9 @@ const renderFeedback = (status, i18n) => {
     feedback.classList.add('text-success');
     return;
   }
-
-  input.classList.add('is-invalid');
+  if (status === 'invalid') {
+    input.classList.add('is-invalid');
+  }
   feedback.classList.add('text-danger');
 };
 export default renderFeedback;
