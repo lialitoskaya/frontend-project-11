@@ -14,6 +14,7 @@ const renderForm = (state) => {
       break;
     }
     case 'done': {
+      input.value = '';
       input.removeAttribute('readonly');
       addBtn.removeAttribute('disabled');
       break;
