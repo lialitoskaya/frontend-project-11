@@ -20,7 +20,7 @@ const updatePosts = (elements, url) => contentRequest(url)
         currentFeed = oldFeed;
       }
       if (newPosts.length > 0) {
-        newPosts.map((p) => {
+        newPosts.forEach((p) => {
           p.feedId = currentFeed.id;
           p.id = _.uniqueId();
         });
