@@ -11,7 +11,7 @@ const ru = {
       success: 'RSS успешно загружен',
       invalid: 'Ссылка должна быть валидным URL',
       duplicate: 'RSS уже существует',
-      parseError: 'Ресур не содержит валидный RSS',
+      parseError: 'Ресурс не содержит валидный RSS',
       networkError: 'Ошика сети',
       unknow: 'Ошибка чтения RSS',
       findFeedsAndPostsError: 'Ошибка поиска новых фидов и постов RSS',
