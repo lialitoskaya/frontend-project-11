@@ -1,12 +1,12 @@
-import onChange from 'on-change';
-import i18next from 'i18next';
-import urlValidator from './validate/validator.js';
-import render from './view/render.js';
-import ru from './textElements/ru.js';
-import en from './textElements/en.js';
-import runApp from './view/runApp.js';
-import updatePosts from './util/updatePosts.js';
-import InitElements from './util/init.js';
+import onChange from "on-change";
+import i18next from "i18next";
+import urlValidator from "./validate/validator.js";
+import render from "./view/render.js";
+import ru from "./textElements/ru.js";
+import en from "./textElements/en.js";
+import runApp from "./view/runApp.js";
+import updatePosts from "./util/updatePosts.js";
+import InitElements from "./util/init.js";
 
 const initLng = (lng) => {
   const i18n = i18next.createInstance();
@@ -19,12 +19,12 @@ const initLng = (lng) => {
 
 const app = () => {
   const state = {
-    lng: '',
+    lng: "",
     ui: {
       form: {
         state: null,
         urlState: {
-          statusKey: '',
+          statusKey: "",
         },
       },
       rssElements: {
@@ -36,7 +36,7 @@ const app = () => {
     urls: [],
   };
 
-  const i18n = initLng('ru');
+  const i18n = initLng("ru");
   runApp(i18n);
 
   const watchedState = onChange(state, render(state.ui, i18n));
@@ -50,25 +50,26 @@ const app = () => {
   const { input } = formElements;
   const { urlState } = watchedState.ui.form;
 
-  form.addEventListener('submit', (e) => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault();
 
     const url = input.value;
     const { urls } = watchedState;
-    urlState.state = 'filled';
+    urlState.state = "filled";
 
     urlValidator(urls, url)
       .then(() => updatePosts(rssElements, url))
       .then(() => {
         urls.push(url);
-        urlState.statusKey = 'success';
+        urlState.statusKey = "success";
       })
       .catch((err) => {
+        console.log(err);
         urlState.statusKey = err.message;
       })
       .then(() => {
-        urlState.statusKey = '';
-        urlState.state = 'done';
+        urlState.statusKey = "";
+        urlState.state = "done";
       });
   });
 };
