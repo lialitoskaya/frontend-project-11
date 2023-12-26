@@ -1,13 +1,12 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "[![Actions Status](https://github.com/lialitoskaya/frontend-project-11/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/lialitoskaya/frontend-project-11/actions)",
-  "main": "src/index",
+  "description": "RSS aggregator",
   "type": "module",
   "scripts": {
     "test": "jest --colors"
   },
-  "author": "",
+  "author": "Liya Makadze",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.23.3",
