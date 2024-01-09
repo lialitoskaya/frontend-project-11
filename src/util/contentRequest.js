@@ -1,18 +1,20 @@
+import setProxy from './setProxy.js';
+
 const contentRequest = (url) => {
   const promise = new Promise((resolve, reject) => {
     const timeoutId = setTimeout(() => {
       reject(new Error('timeout of 10000ms exceeded'));
     }, 10000);
-    fetch(`https://allorigins.hexlet.app/get?disableCache=true&url=${url}`)
-      .then((response) => {
-        clearTimeout(timeoutId);
-        if (response.ok) {
-          return resolve(response.json());
-        }
-        throw new Error('Network response was not ok.');
-      })
-      .catch(() => reject(new Error('networkError')));
+
+    fetch(setProxy(url)).then((response) => {
+      clearTimeout(timeoutId);
+      if (response.ok) {
+        return resolve(response.json());
+      }
+      reject(new Error('Network response was not ok.'));
+    });
   });
+
   return Promise.all([promise]).catch(() => {
     throw new Error('networkError');
   });
