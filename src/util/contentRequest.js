@@ -1,9 +1,9 @@
-import setProxy from './setProxy.js';
+import setProxy from "./setProxy.js";
 
 const contentRequest = (url) => {
   const promise = new Promise((resolve, reject) => {
     const timeoutId = setTimeout(() => {
-      reject(new Error('timeout of 10000ms exceeded'));
+      reject(new Error("timeout of 10000ms exceeded"));
     }, 10000);
 
     fetch(setProxy(url)).then((response) => {
@@ -11,12 +11,12 @@ const contentRequest = (url) => {
       if (response.ok) {
         return resolve(response.json());
       }
-      reject(new Error('Network response was not ok.'));
+      return reject(new Error("Network response was not ok."));
     });
   });
 
   return Promise.all([promise]).catch(() => {
-    throw new Error('networkError');
+    throw new Error("networkError");
   });
 };
 
