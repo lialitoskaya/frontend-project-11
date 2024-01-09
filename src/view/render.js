@@ -3,20 +3,24 @@ import renderPosts from './renderPosts.js';
 import renderFeedback from './renderFeedback.js';
 import renderForm from './renderForm.js';
 
-const render = (state, i18n) => (path, value) => {
+const render = (elements, ui, i18n) => (path, value) => {
   if (path === 'ui.rssElements.feeds') {
-    renderFeeds(state.rssElements.feeds, i18n);
+    renderFeeds(ui.rssElements.feeds, i18n);
   }
   if (path === 'ui.rssElements.posts') {
-    renderPosts(state.rssElements.posts, state.seenPosts, i18n);
+    const {
+      rssElements: { posts },
+      seenPosts,
+    } = ui;
+    renderPosts(elements, posts, seenPosts, i18n);
   }
   if (path === 'ui.form.urlState.statusKey') {
     if (value.length > 0) {
-      renderFeedback(value, i18n);
+      renderFeedback(elements, value, i18n);
     }
   }
   if (path === 'ui.form.urlState.state') {
-    renderForm(value);
+    renderForm(elements, value);
   }
 };
 export default render;

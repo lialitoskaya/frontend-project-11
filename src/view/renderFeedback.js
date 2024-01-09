@@ -1,9 +1,6 @@
-import InitElements from '../util/init.js';
-
-const renderFeedback = (status, i18n) => {
-  const elements = new InitElements();
-  const { feedback } = elements.getHeaderElements();
-  const { input } = elements.getFormElements();
+const renderFeedback = (elements, status, i18n) => {
+  const { feedback } = elements.headerElements;
+  const { input } = elements.formElements;
 
   feedback.textContent = i18n.t(`feedback.${status}`);
 

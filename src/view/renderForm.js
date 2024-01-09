@@ -1,9 +1,6 @@
-import InitElements from '../util/init.js';
-
-const renderForm = (state) => {
-  const elements = new InitElements();
-  const { input, addBtn } = elements.getFormElements();
-  const { feedback } = elements.getHeaderElements();
+const renderForm = (elements, state) => {
+  const { input, addBtn } = elements.formElements;
+  const { feedback } = elements.headerElements;
   switch (state) {
     case 'filled': {
       feedback.textContent = '';
