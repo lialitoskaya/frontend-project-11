@@ -66,37 +66,40 @@ const app = () => {
       lng,
       resources: { ru, en },
     })
-    .then(() => renderTextContent(i18n, elements));
+    .then(() => {
+      renderTextContent(i18n, elements);
 
-  const watchedState = onChange(state, render(elements, state.ui, i18n));
+      const watchedState = onChange(state, render(elements, state.ui, i18n));
 
-  const {
-    rssElements,
-    form: { urlState },
-  } = watchedState.ui;
+      const {
+        rssElements,
+        form: { urlState },
+      } = watchedState.ui;
 
-  const { input, form } = elements.formElements;
+      const { input, form } = elements.formElements;
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    const url = input.value;
-    const { urls } = watchedState;
-    urlState.state = 'filled';
+        const url = input.value;
+        const { urls } = watchedState;
+        urlState.state = 'filled';
 
-    urlValidator(urls, url)
-      .then(() => updatePosts(rssElements, url))
-      .then(() => {
-        urls.push(url);
-        urlState.statusKey = 'success';
-      })
-      .catch((err) => {
-        urlState.statusKey = err.message;
-      })
-      .then(() => {
-        urlState.statusKey = '';
-        urlState.state = 'done';
+        urlValidator(urls, url)
+          .then(() => updatePosts(rssElements, url))
+          .then(() => {
+            urls.push(url);
+            urlState.statusKey = 'success';
+          })
+          .catch((err) => {
+            urlState.statusKey = err.message;
+          })
+          .then(() => {
+            urlState.statusKey = '';
+            urlState.state = 'done';
+          });
       });
-  });
+    });
 };
+
 export default app;

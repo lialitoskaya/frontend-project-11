@@ -26,5 +26,6 @@ const ru = {
       },
     },
   },
+  noTestSpecifiedError: 'Ошибка: тест не указан',
 };
 export default ru;

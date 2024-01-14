@@ -26,6 +26,7 @@ const en = {
         close: 'Close',
       },
     },
+    noTestSpecifiedError: 'Error: no test specified',
   },
 };
 export default en;
